@@ -5,7 +5,13 @@ package lesson11.task1
 /**
  * Фабричный метод для создания комплексного числа из строки вида x+yi
  */
-fun Complex(s: String): Complex = TODO()
+fun Complex(s: String): Complex {
+    val splitS = s.split("+", "-")
+    val x = splitS[0].toDouble()
+    val y = splitS[1].split("i")[0].toDouble()
+    return if ("-" in s) Complex(x, -y)
+    else Complex(x, y)
+}
 
 /**
  * Класс "комплексное число".
@@ -21,40 +27,51 @@ class Complex(val re: Double, val im: Double) {
     /**
      * Конструктор из вещественного числа
      */
-    constructor(x: Double) : this(TODO(), TODO())
+    constructor(x: Double) : this(x, 0.0)
 
     /**
      * Сложение.
      */
-    operator fun plus(other: Complex): Complex = TODO()
+    operator fun plus(other: Complex): Complex = Complex(re + other.re, im + other.im)
 
     /**
      * Смена знака (у обеих частей числа)
      */
-    operator fun unaryMinus(): Complex = TODO()
+    operator fun unaryMinus(): Complex = Complex(-re, -im)
 
     /**
      * Вычитание
      */
-    operator fun minus(other: Complex): Complex = TODO()
+    operator fun minus(other: Complex): Complex = Complex(re - other.re, im - other.im)
 
     /**
      * Умножение
      */
-    operator fun times(other: Complex): Complex = TODO()
+    operator fun times(other: Complex): Complex =
+        Complex(re * other.re - im * other.im, other.re * im + re * other.im)
 
     /**
      * Деление
      */
-    operator fun div(other: Complex): Complex = TODO()
+    operator fun div(other: Complex): Complex = Complex(
+        (re * other.re + im * other.im) /
+                (other.re * other.re + other.im * other.im), (im * other.re - re * other.im) /
+                (other.re * other.re + other.im * other.im)
+    )
 
     /**
      * Сравнение на равенство
      */
-    override fun equals(other: Any?): Boolean = TODO()
+    override fun equals(other: Any?): Boolean = other is Complex && re == other.re && im == other.im
 
     /**
      * Преобразование в строку
      */
-    override fun toString(): String = TODO()
+    override fun toString(): String {
+        var complexString = ""
+        if (im > 0.0) complexString = "$re+$im" + "i"
+        complexString = if (im < 0.0) "$re$im" + "i"
+        else "$re"
+        return complexString
+    }
 }
