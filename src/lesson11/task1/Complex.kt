@@ -9,12 +9,12 @@ fun Complex(s: String): Complex {
     val splitS = s.split("+", "-")
     val x = splitS[0].toDouble()
     val y = splitS[1].split("i")[0].toDouble()
-    if (s[0] == '-') {
+    return if (s[0] == '-') {
         val sWithOutFirst = s.drop(1)
-        return if (sWithOutFirst.contains("-")) Complex(-x, -y)
+        if (sWithOutFirst.contains("-")) Complex(-x, -y)
         else Complex(-x, y)
-    } else if (s.contains("-")) return Complex(x, -y)
-    else return Complex(x, y)
+    } else if (s.contains("-")) Complex(x, -y)
+    else Complex(x, y)
 }
 
 /**

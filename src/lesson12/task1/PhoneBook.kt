@@ -56,14 +56,12 @@ class PhoneBook {
      */
     fun addPhone(name: String, phone: String): Boolean {
         if (name !in phonesInfo.keys) return false
-        else {
-            for (value in phonesInfo.values) {
-                return if (phone in value)
-                    false
-                else {
-                    phonesInfo[name]!!.add(phone)
-                    true
-                }
+        for (value in phonesInfo.values) {
+            return if (phone in value)
+                false
+            else {
+                phonesInfo[name]!!.add(phone)
+                true
             }
         }
         return true
@@ -87,24 +85,15 @@ class PhoneBook {
      * Вернуть все номера телефона заданного человека.
      * Если этого человека нет в книге, вернуть пустой список
      */
-    fun phones(name: String): Set<String> {
-        var list = mutableSetOf<String>()
-        list = if (name !in phonesInfo.keys) mutableSetOf<String>()
-        else phonesInfo[name]!!
-        return list
-    }
+    fun phones(name: String): Set<String> = phonesInfo.getOrDefault(name, mutableSetOf<String>())
 
     /**
      * Вернуть имя человека по заданному номеру телефона.
      * Если такого номера нет в книге, вернуть null.
      */
     fun humanByPhone(phone: String): String? {
-        var list = ""
         for (i in phonesInfo.keys) {
-            if (phonesInfo[i]!!.contains(phone)) {
-                list = i
-                return list
-            }
+            if (phonesInfo[i]!!.contains(phone)) return i
         }
         return null
     }
