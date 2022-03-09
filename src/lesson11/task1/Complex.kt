@@ -3,13 +3,17 @@
 package lesson11.task1
 
 /**
- * Фабричный метод для создания комплексного числа из строки вида x+yi
+ * Фабричный метод для создания комплексного числа из строки вида x+yi x yi
  */
 fun Complex(s: String): Complex {
     val splitS = s.split("+", "-")
     val x = splitS[0].toDouble()
     val y = splitS[1].split("i")[0].toDouble()
-    return if ("-" in s) Complex(x, -y)
+    if (s[0] == '-') {
+        val sWithOutFirst = s.drop(1)
+        return if (sWithOutFirst.contains("-")) Complex(-x, -y)
+        else Complex(-x, y)
+    } else if (s.contains("-")) return Complex(x, -y)
     else Complex(x, y)
 }
 
