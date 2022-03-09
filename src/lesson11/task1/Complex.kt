@@ -3,7 +3,7 @@
 package lesson11.task1
 
 /**
- * Фабричный метод для создания комплексного числа из строки вида x+yi x yi
+ * Фабричный метод для создания комплексного числа из строки вида x+yi
  */
 fun Complex(s: String): Complex {
     val splitS = s.split("+", "-")
@@ -14,7 +14,7 @@ fun Complex(s: String): Complex {
         return if (sWithOutFirst.contains("-")) Complex(-x, -y)
         else Complex(-x, y)
     } else if (s.contains("-")) return Complex(x, -y)
-    else Complex(x, y)
+    else return Complex(x, y)
 }
 
 /**
