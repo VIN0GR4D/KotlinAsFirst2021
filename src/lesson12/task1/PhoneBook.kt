@@ -55,16 +55,22 @@ class PhoneBook {
      * либо такой номер телефона зарегистрирован за другим человеком.
      */
     fun addPhone(name: String, phone: String): Boolean {
-        if (name !in phonesInfo.keys) return false
+        var flag = 0
+        if (name !in phonesInfo.keys) {
+            return false
+            flag = 1
+        }
         for (value in phonesInfo.values) {
-            return if (phone in value)
-                false
-            else {
-                phonesInfo[name]!!.add(phone)
-                true
+            if (phone in value) {
+                return false
+                flag = 1
             }
         }
-        return true
+        if (flag == 0) {
+            phonesInfo[name]!!.add(phone)
+            return true
+        }
+        return false
     }
 
     /**
